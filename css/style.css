@@ -7,6 +7,23 @@ ul, input, p{
     color:#403e3e;
     font-family: 'Righteous', cursive;
     }
+
+.header{
+  justify-content:space-between;
+  display:flex;
+  background:#a4befc;
+  border-radius:20px;
+  padding:20px 10px;
+  margin: 10px 20px 40px ;
+  box-shadow: 0px 10px 10px 0px rgba(145, 167, 219 ,1);
+}
+
+
+.header img{
+  width:75%;
+}
+
+
 .todoList{
   background-color:#f2fcfc;
   margin:0 auto;
@@ -93,20 +110,6 @@ ul, input, p{
   color:white;
 }
 
-.header{
-  justify-content:space-between;
-  display:flex;
-  background:#a4befc;
-  border-radius:20px;
-  padding:20px 10px;
-  margin: 10px 20px 40px ;
-  box-shadow: 0px 10px 10px 0px rgba(145, 167, 219 ,1);
-}
-
-
-.header img{
-  width:75%;
-}
 
 .imgWrapper{
   flex-basis:80px;
