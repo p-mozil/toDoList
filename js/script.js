@@ -11,9 +11,10 @@ var localStorageId = 0;
 divResult.appendChild(taskElementList);
 
 class Task {
-  constructor(row,localStorageId) {
+  constructor(row,localStorageId,isCompleted = false) {
     this.row = row;
     this.localStorageId = localStorageId;
+    this.isCompleted = isCompleted;
   }
   create() {
     if (this.row) {
@@ -33,6 +34,12 @@ class Task {
       editBtn.classList = "editBtn";
       textWrap.className = "textWrap";
       textWrap.textContent = this.row;
+       if (this.isCompleted){
+        textWrap.classList.add("completed");
+        taskElement.style.background = "gray";
+        counter--;
+        setCounter();
+      }
       taskElement.appendChild(editBtn);
       taskElement.appendChild(textWrap);
       taskElement.className = "item";      
@@ -84,6 +91,7 @@ class Task {
           button.replaceWith(saveEdit);
       }else{
         textWrap.classList.toggle("completed");
+        updateLocalStorage();
           if (textWrap.classList.contains("completed")) {
             taskElement.style.background = "gray";           
             counter--;
@@ -131,7 +139,7 @@ deleteAllButton.addEventListener("click", function() {
 })
 
 function setLocalStorage(row){ 
-  localStorage.setItem(localStorageId, row);
+  localStorage.setItem(localStorageId,JSON.stringify(new localStorageObject(false,row)));
   localStorageId++;
 }
 
@@ -139,10 +147,17 @@ function getLocalStorage(localStorageId){
  return localStorage.getItem(localStorageId);  
 }
 
+class localStorageObject{
+  constructor(isCompleted,text){
+    this.isCompleted = isCompleted;
+    this.text = text;
+  }
+}
+
 function updateLocalStorage(){
   let allItems = document.querySelectorAll(".item");
   localStorage.clear();
-Array.from(allItems).map((el,i) => localStorage.setItem(i,el.childNodes[1].textContent));
+Array.from(allItems).map((el,i) => localStorage.setItem(i,JSON.stringify(new localStorageObject(el.childNodes[1].classList.contains("completed"),el.childNodes[1].textContent))));
 }
 
  function showClearAllButton() {
@@ -173,11 +188,11 @@ text = " tasks for today";
 
  function onStart(){
    for (i = 0; i < localStorage.length ; i++) {
- new Task(getLocalStorage(i),localStorageId).create();
-  tasks = document.querySelectorAll(".item");
+ new Task(JSON.parse(getLocalStorage(i)).text,localStorageId,JSON.parse(getLocalStorage(i)).isCompleted).create();
 }
 setCounter();
 showClearAllButton();
+updateLocalStorage();
 }  
 onStart();
 
