@@ -28,9 +28,7 @@ ul, input, p{
   transition: 0.3s;
 }
 
-.item:hover{
-  background:#a4befc;
-}
+
 .inputs{
  display:flex;
  flex-wrap:wrap;
@@ -178,6 +176,13 @@ ul, input, p{
  font-family: 'Righteous', cursive;
   transition: 0.3s;
 }
+
+
+@media (min-width: 720px){
+.item:hover{
+  background:#a4befc;
+}
+
 .addToButton:hover, .saveEdit:hover{
   background-color:#7996db;
   
@@ -186,4 +191,4 @@ ul, input, p{
 .deleteAllToButton:hover{
   background:#d64f4f;
 }
-
+}
